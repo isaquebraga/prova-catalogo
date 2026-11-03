@@ -32,10 +32,9 @@ export function criarRotas() {
   const categoriasController = new CategoriasController (categoriasService);
   const produtosController = new ProdutosController(produtosService, categoriasService);
 
-  const rotas = Router();
-  rotas.get("/", (req, res) => res.redirect("produtos/index"));
-  rotas.use("produtos/index", criarRotasDeProdutos(produtosController));
-  rotas.use("categorias/index", criarRotasDeCategorias(categoriasController))
+  router.get("/", (req, res) => res.redirect("produtos/index"));
+  router.use("produtos/index", criarRotasDeProdutos(produtosController));
+  router.use("categorias/index", criarRotasDeCategorias(categoriasController))
 
   return router;
 }
