@@ -13,5 +13,28 @@ export class ProdutosController {
     this.categoriasService = categoriasService; // para montar o <select> de categorias
     // Dica: "amarre" o this dos métodos usados como callback nas rotas.
   }
-  // TODO: implemente index, novo, criar.
+
+  index = async (req, res) => {
+    try {
+      const produtos = await this.service.listarProdutos();
+      res.render("produtos/index", { produtos });
+    } catch (erro) {
+      console.log(erro.message);
+    }
+  };
+
+  novo = async (req, res) => {
+    const categorias = await this.categoriasService.listarCategorias();
+    res.render("produtos/form", { categorias });
+  };
+
+  criar = async (req, res) => {
+    try {
+      const { nome, preco, categoriaId } = req.body;
+      await this.service.criarCategoria(nome, preco, categoriaId);
+      res.redirect("categorias/index");
+    } catch (erro) {
+      console.log(erro.message);
+    }
+  };
 }

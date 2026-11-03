@@ -1,4 +1,4 @@
-import { prisma } from '../config/database.js';
+import { prisma } from "../config/database.js";
 
 // REPOSITÓRIO de Categoria — a ÚNICA camada que conversa com o Prisma.
 // Implemente os métodos que o service vai precisar:
@@ -7,5 +7,19 @@ import { prisma } from '../config/database.js';
 //   - criar uma categoria.
 // Dica: use `prisma.categoria.*`. Tudo é assíncrono.
 export class CategoriasRepositoryPrisma {
-  // TODO: implemente os métodos descritos acima.
+  constructor(prisma) {
+    this.prisma = prisma;
+  }
+
+  listarCategorias() {
+    return this.prisma.findMany();
+  }
+
+  buscarCategoriaPorId(id) {
+    return this.prisma.findUnique({ where: { id } });
+  }
+
+  criarCategoria(nome) {
+    return this.prisma.create({ data: { nome: nome } });
+  }
 }
